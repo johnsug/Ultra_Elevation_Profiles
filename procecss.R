@@ -2,8 +2,7 @@ library(data.table)
 library(ggplot2)
 library(XML)
 
-## https://appsilon.com/r-gpx-files/
-process_gpx <- function(gpx_file, rescale=NULL, vert_units="feet"){
+process_gpx <- function(gpx_file, rescale=NULL, vert_units="meters", smoothing_factor=0.25){
 
   ## read in
   dat <- htmlTreeParse(file=gpx_file, useInternalNodes=TRUE)
@@ -33,20 +32,40 @@ process_gpx <- function(gpx_file, rescale=NULL, vert_units="feet"){
     dat[, dist:=dist2]
   dat[, c("lat2", "lon2", "dist2"):=NULL]
   ## convert feet to meters
+
+  ## smooth vert
+  dat[, vert:=round(modelbased::smoothing(vert, method = "loess", strength = smoothing_factor),1)]
+
+  ## miles
+  dat[, miles:=round(dist,1)]
+
+  ## feet and meters
+  if(vert_units=="feet"){
+    dat[, feet:=round(vert)]
+  }
   if(vert_units=="meters"){
-    dat$vert <- dat$vert * 3.28084
+    dat[, feet:=round(vert/3.28084)]
   }
 
-  return(dat)
+  ## km and meters
+  dat[, km:=round(dist/1.60934)]
+  dat[, meters:=round(vert*3.28084)]
+
+  ## reduce
+  dat <- unique(dat[, .(lat=round(min(lat),3), lon=round(min(lon),3), feet=min(feet), km=min(km), meters=min(meters)), by=miles])
+
+  return(dat[, .(lat, lon, miles, km, feet, meters)])
 }
 
-wasatch <- process_gpx("gpx_files/2022-Course-and-Points-and-Elevation-5Sept22_GPX.gpx", rescale=100)
-boston <- process_gpx("gpx_files/2024_Boston_Marathon.gpx", rescale=26.2)
-leadville <- process_gpx("gpx_files/Leadville 100 Run.gpx", rescale=100, vert_units="meters")
-ws <- process_gpx("gpx_files/WESTERN_STATES_100_.gpx", 100)
-utmb <- process_gpx("gpx_files/UTMB_2023.gpx", 106)
-hardrock_cw <- process_gpx("gpx_files/HR100-Course-Clockwise.gpx", 100)
-jav <- process_gpx("gpx_files/Javelina_Jundred.gpx", 100)
+wasatch <- process_gpx("/Users/johnsugden/2022-Course-and-Points-and-Elevation-5Sept22_GPX.gpx", 100, vert_units="feet", smoothing_factor=0.025)
+boston <- process_gpx("/Users/johnsugden/Downloads/2024_Boston_Marathon.gpx", rescale=26.2, smoothing_factor=0.025)
+leadville <- process_gpx("/Users/johnsugden/Downloads/Leadville 100 Run.gpx", rescale=100, smoothing_factor=0.025)
+ws <- process_gpx("/Users/johnsugden/Downloads/WESTERN_STATES_100_.gpx", 100, smoothing_factor=0.025)
+utmb <- process_gpx("/Users/johnsugden/Downloads/UTMB_2023.gpx", 106, smoothing_factor=0.025)
+hardrock_cw <- process_gpx("/Users/johnsugden/Downloads/HR100-Course-Clockwise.gpx", 100, smoothing_factor=0.025)
+jav <- process_gpx("/Users/johnsugden/Downloads/Javelina_Jundred.gpx", 100, smoothing_factor=0.025)
+
+#ggplot(jav, aes(x=miles, y=feet)) + geom_line() + theme_minimal()
 
 wasatch$event <- "Wasatch 100"
 boston$event <- "Boston Marathon"
