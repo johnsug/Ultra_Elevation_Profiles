@@ -39,17 +39,17 @@ process_gpx <- function(gpx_file, rescale=NULL, vert_units="meters", smoothing_f
   ## miles
   dat[, miles:=round(dist,1)]
 
-  ## feet and meters
+  ## feet
   if(vert_units=="feet"){
     dat[, feet:=round(vert)]
   }
   if(vert_units=="meters"){
-    dat[, feet:=round(vert*3.28084)]
+    dat[, feet:=vert*3.28084]
   }
 
   ## km and meters
-  dat[, km:=round(dist/1.60934)]
-  dat[, meters:=round(vert*3.28084)]
+  dat[, km:=miles*1.60934]
+  dat[, meters:=feet*3.28084]
 
   ## reduce
   dat <- unique(dat[, .(lat=round(min(lat),3), lon=round(min(lon),3), feet=min(feet), km=min(km), meters=min(meters)), by=miles])
