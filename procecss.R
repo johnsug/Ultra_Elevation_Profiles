@@ -44,7 +44,7 @@ process_gpx <- function(gpx_file, rescale=NULL, vert_units="meters", smoothing_f
     dat[, feet:=round(vert)]
   }
   if(vert_units=="meters"){
-    dat[, feet:=round(vert/3.28084)]
+    dat[, feet:=round(vert*3.28084)]
   }
 
   ## km and meters
