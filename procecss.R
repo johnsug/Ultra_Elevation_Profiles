@@ -69,6 +69,7 @@ hardrock_cw <- process_gpx("/Users/johnsugden/Downloads/HR100-Course-Clockwise.g
 imtuf <- process_gpx("/Users/johnsugden/Downloads/IMTUF_100.gpx", 100, event_name="IMTUF 100")
 jav <- process_gpx("/Users/johnsugden/Downloads/Javelina_Jundred.gpx", 100, event_name="Javelina Jundred")
 leadville <- process_gpx("/Users/johnsugden/Downloads/Leadville 100 Run.gpx", rescale=100, event_name="Leadville 100")
+mm <- process_gpx("/Users/johnsugden/Downloads/Mogollon_Monster_100_FTW_.gpx", rescale=100, event_name="Mogollon Monster 100")
 od <- process_gpx("/Users/johnsugden/Downloads/Old_Dominion_100.gpx", 100, event_name="Old Dominion 100")
 ouray <- process_gpx("/Users/johnsugden/Downloads/Ouray_100_Mile_Endurance_Run_2023.gpx", 100, event_name="Ouray 100")
 scout <- process_gpx("/Users/johnsugden/Downloads/Mix_103_69_FM.gpx", 100, smoothing_factor=0.025, event_name="Scout Mountain 100")
@@ -82,7 +83,7 @@ wy <- process_gpx("/Users/johnsugden/Downloads/Wyoming_Range_100.gpx", 100, smoo
 
 extract <- data.table(dplyr::bind_rows(ac, bear, bighorn, boston, canyons,
                                        cc, es, grindstone, hardrock_cw, imtuf, 
-                                       jav, leadville, od, ouray, scout, 
+                                       jav, leadville, mm, od, ouray, scout, 
                                        utmb, vermont, wasatch, wy, ws))
 write.csv(extract, "races.csv", row.names=F)
 extract[, .N, by=event]

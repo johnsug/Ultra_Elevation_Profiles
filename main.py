@@ -5,7 +5,7 @@ import numpy as np
 #import seaborn as sb
 
 st.title('Interactive Ultramarathon Course Profiles')
-st.write('Comparing American Classics with races in the Rocky Mountain Slam')
+st.write('Comparing the American Classics with the races in the Rocky Mountain Slam')
 
 race_data = pd.read_csv('races.csv')
 race_list = race_data['event'].unique()
