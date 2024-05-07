@@ -57,29 +57,34 @@ process_gpx <- function(gpx_file, rescale=NULL, vert_units="meters", smoothing_f
   return(dat[, .(lat, lon, miles, km, feet, meters)])
 }
 
-wasatch <- process_gpx("/Users/johnsugden/2022-Course-and-Points-and-Elevation-5Sept22_GPX.gpx", 100, vert_units="feet", smoothing_factor=0.025)
+ac <- process_gpx("/Users/johnsugden/Downloads/7th_AC100_3rd_place_.gpx", 101.2, smoothing_factor=0.025)
 boston <- process_gpx("/Users/johnsugden/Downloads/2024_Boston_Marathon.gpx", rescale=26.2, smoothing_factor=0.025)
-leadville <- process_gpx("/Users/johnsugden/Downloads/Leadville 100 Run.gpx", rescale=100, smoothing_factor=0.025)
-ws <- process_gpx("/Users/johnsugden/Downloads/WESTERN_STATES_100_.gpx", 100, smoothing_factor=0.025)
-utmb <- process_gpx("/Users/johnsugden/Downloads/UTMB_2023.gpx", 106, smoothing_factor=0.025)
 hardrock_cw <- process_gpx("/Users/johnsugden/Downloads/HR100-Course-Clockwise.gpx", 100, smoothing_factor=0.025)
+leadville <- process_gpx("/Users/johnsugden/Downloads/Leadville 100 Run.gpx", rescale=100, smoothing_factor=0.025)
 jav <- process_gpx("/Users/johnsugden/Downloads/Javelina_Jundred.gpx", 100, smoothing_factor=0.025)
-
+od <- process_gpx("/Users/johnsugden/Downloads/Old_Dominion_100.gpx", 100, smoothing_factor=0.025)
+utmb <- process_gpx("/Users/johnsugden/Downloads/UTMB_2023.gpx", 106, smoothing_factor=0.025)
+wasatch <- process_gpx("/Users/johnsugden/2022-Course-and-Points-and-Elevation-5Sept22_GPX.gpx", 100, vert_units="feet", smoothing_factor=0.025)
+ws <- process_gpx("/Users/johnsugden/Downloads/WESTERN_STATES_100_.gpx", 100, smoothing_factor=0.025)
 #ggplot(jav, aes(x=miles, y=feet)) + geom_line() + theme_minimal()
 
-wasatch$event <- "Wasatch 100"
+ac$event <- "Angeles Crest 100"
 boston$event <- "Boston Marathon"
-leadville$event <- "Leadville 100"
-ws$event <- "Western States"
-utmb$event <- "UTMB"
 hardrock_cw$event <- "Hardrock CW"
+leadville$event <- "Leadville 100"
+od$event <- "Old Dominion 100"
 jav$event <- "Javelina Jundred"
+utmb$event <- "UTMB"
+wasatch$event <- "Wasatch 100"
+ws$event <- "Western States"
 
-extract <- data.table(dplyr::bind_rows(wasatch, 
+extract <- data.table(dplyr::bind_rows(ac, 
                                        boston, 
-                                       leadville, 
-                                       ws, 
-                                       utmb, 
+                                       jav, 
                                        hardrock_cw, 
-                                       jav))
+                                       leadville, 
+                                       od, 
+                                       utmb, 
+                                       wasatch, 
+                                       ws))
 write.csv(extract, "races.csv", row.names=F)
