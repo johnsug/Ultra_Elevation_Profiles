@@ -5,6 +5,7 @@ import numpy as np
 #import seaborn as sb
 
 st.title('Interactive Ultramarathon Course Profiles')
+st.write('Comparing American Classics with races in the Rocky Mountain Slam')
 
 race_data = pd.read_csv('races.csv')
 race_list = race_data['event'].unique()
@@ -16,8 +17,6 @@ default_races = ['Wasatch 100', 'Western States', 'Boston Marathon']
 
 options = st.multiselect('Select races to display', race_list, default_races)
 chart_data = race_data.copy().query(f'event in {options}')
-
-#st.write('You selected:', options)
 
 units = st.radio('Measurement System', ['Imperial', 'Metric'], horizontal=True)
 

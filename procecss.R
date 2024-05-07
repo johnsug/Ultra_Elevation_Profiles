@@ -72,6 +72,7 @@ leadville <- process_gpx("/Users/johnsugden/Downloads/Leadville 100 Run.gpx", re
 od <- process_gpx("/Users/johnsugden/Downloads/Old_Dominion_100.gpx", 100, event_name="Old Dominion 100")
 ouray <- process_gpx("/Users/johnsugden/Downloads/Ouray_100_Mile_Endurance_Run_2023.gpx", 100, event_name="Ouray 100")
 scout <- process_gpx("/Users/johnsugden/Downloads/Mix_103_69_FM.gpx", 100, smoothing_factor=0.025, event_name="Scout Mountain 100")
+tushars <- process_gpx("/Users/johnsugden/Downloads/Tushars_100k_.gpx", 62, smoothing_factor=0.025, event_name="Tushars 100K")
 utmb <- process_gpx("/Users/johnsugden/Downloads/UTMB_2023.gpx", 106, smoothing_factor=0.025, event_name="UTMB")
 vermont <- process_gpx("/Users/johnsugden/Downloads/VT_.gpx", 100, smoothing_factor=0.025, event_name="Vermont 100")
 wasatch <- process_gpx("/Users/johnsugden/2022-Course-and-Points-and-Elevation-5Sept22_GPX.gpx", 100, vert_units="feet", event_name="Wasatch 100")
