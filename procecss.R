@@ -52,9 +52,11 @@ process_gpx <- function(gpx_file, rescale=NULL, vert_units="meters", smoothing_f
   dat[, meters:=feet*3.28084]
 
   ## reduce
-  dat <- unique(dat[, .(lat=round(min(lat),3), lon=round(min(lon),3), feet=min(feet), km=min(km), meters=min(meters)), by=miles])
+  dat <- unique(dat[, .(lat=round(min(lat),3), lon=round(min(lon),3), 
+    feet=round(min(feet)), km=round(min(km),2), 
+    meters=round(min(meters))), by=miles])
 
-  return(dat[, .(lat, lon, miles, km, feet, meters, event=event_name)])
+  return(dat[, .(lat, lon, miles, km, feet=round(feet), meters=round(meters), event=event_name)])
 }
 
 ac <- process_gpx("/Users/johnsugden/Downloads/7th_AC100_3rd_place_.gpx", 101.2, event_name="Angeles Crest 100")
