@@ -67,7 +67,7 @@ can <- process_gpx("/Users/johnsugden/Downloads/CANYONLANDS_100.gpx", 100, event
 canyons <- process_gpx("/Users/johnsugden/Downloads/Canyons_100_M_.gpx", 100, event_name="Canyons 100")
 cc <- process_gpx("/Users/johnsugden/Downloads/Cascade_Crest_1st_overall_.gpx", 100, event_name="Cascade Crest 100")
 cj <- process_gpx("/Users/johnsugden/Downloads/Cruel_Jewel_100.gpx", 105.9, event_name="Cruel Jewel")
-dp <- process_gpx("/Users/johnsugden/Downloads/DC_Peaks_50_.gpx", 50, event_name="Davis Peaks 50")
+dp <- process_gpx("/Users/johnsugden/Downloads/DC_Peaks_50_.gpx", 50, event_name="DC Peaks 50")
 es <- process_gpx("/Users/johnsugden/Downloads/Eastern_States_100_5th_Place_.gpx", 100, event_name="Eastern States")
 grindstone <- process_gpx("/Users/johnsugden/Downloads/Grindstone_100_miler_.gpx", 100, event_name="Grindstone 100")
 hardrock_cw <- process_gpx("/Users/johnsugden/Downloads/HR100-Course-Clockwise.gpx", 100, event_name="Hardrock CW")
