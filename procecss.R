@@ -57,7 +57,6 @@ process_gpx <- function(gpx_file, rescale=NULL, vert_units="meters", smoothing_f
   return(dat[, .(lat, lon, miles, km, feet, meters, event=event_name)])
 }
 
-# x <- process_gpx("/Users/johnsugden/Downloads/", 100, event_name="")
 ac <- process_gpx("/Users/johnsugden/Downloads/7th_AC100_3rd_place_.gpx", 101.2, event_name="Angeles Crest 100")
 at <- process_gpx("/Users/johnsugden/Downloads/AT100.gpx", 100, event_name="Arkansas Traveler 100")
 bc <- process_gpx("/Users/johnsugden/Downloads/Bryce_Canyon_100.gpx", 100, event_name="Bryce Canyon 100")
@@ -68,18 +67,22 @@ can <- process_gpx("/Users/johnsugden/Downloads/CANYONLANDS_100.gpx", 100, event
 canyons <- process_gpx("/Users/johnsugden/Downloads/Canyons_100_M_.gpx", 100, event_name="Canyons 100")
 cc <- process_gpx("/Users/johnsugden/Downloads/Cascade_Crest_1st_overall_.gpx", 100, event_name="Cascade Crest 100")
 cj <- process_gpx("/Users/johnsugden/Downloads/Cruel_Jewel_100.gpx", 105.9, event_name="Cruel Jewel")
+dp <- process_gpx("/Users/johnsugden/Downloads/DC_Peaks_50_.gpx", 50, event_name="Davis Peaks 50")
 es <- process_gpx("/Users/johnsugden/Downloads/Eastern_States_100_5th_Place_.gpx", 100, event_name="Eastern States")
 grindstone <- process_gpx("/Users/johnsugden/Downloads/Grindstone_100_miler_.gpx", 100, event_name="Grindstone 100")
 hardrock_cw <- process_gpx("/Users/johnsugden/Downloads/HR100-Course-Clockwise.gpx", 100, event_name="Hardrock CW")
+hb <- process_gpx("/Users/johnsugden/Downloads/Hellbender_2023.gpx", 100, event_name="Hellbender 100")
 hl <- process_gpx("/Users/johnsugden/Downloads/Dream_come_true_sub_24_and_at_HL100.gpx", 100, event_name="High Lonesome 100")
 imtuf <- process_gpx("/Users/johnsugden/Downloads/IMTUF_100.gpx", 100, event_name="IMTUF 100")
 jav <- process_gpx("/Users/johnsugden/Downloads/Javelina_Jundred.gpx", 100, event_name="Javelina Jundred")
 leadville <- process_gpx("/Users/johnsugden/Downloads/Leadville 100 Run.gpx", rescale=100, event_name="Leadville 100")
+millwood <- process_gpx("/Users/johnsugden/Downloads/Millwood_100_FKT_ (2).gpx", 100, event_name="Millwood 100")
 mm <- process_gpx("/Users/johnsugden/Downloads/Mogollon_Monster_100_FTW_.gpx", rescale=100, event_name="Mogollon Monster 100")
 od <- process_gpx("/Users/johnsugden/Downloads/Old_Dominion_100.gpx", 100, event_name="Old Dominion 100")
 ouray <- process_gpx("/Users/johnsugden/Downloads/Ouray_100_Mile_Endurance_Run_2023.gpx", 100, event_name="Ouray 100")
 rrr <- process_gpx("/Users/johnsugden/Downloads/Run_Rabbit_Run_1st_Place_Tortoise.gpx", 100, event_name="Run Rabbit Run 100")
 scout <- process_gpx("/Users/johnsugden/Downloads/Mix_103_69_FM.gpx", 100, smoothing_factor=0.025, event_name="Scout Mountain 100")
+sp <- process_gpx("/Users/johnsugden/Downloads/SP50.gpx", 50, event_name="Snow Peaks 50")
 tushars <- process_gpx("/Users/johnsugden/Downloads/Tushars_100k_.gpx", 62, smoothing_factor=0.025, event_name="Tushars 100K")
 utmb <- process_gpx("/Users/johnsugden/Downloads/UTMB_2023.gpx", 106, smoothing_factor=0.025, event_name="UTMB")
 vermont <- process_gpx("/Users/johnsugden/Downloads/VT_.gpx", 100, smoothing_factor=0.025, event_name="Vermont 100")
@@ -91,9 +94,10 @@ zion <- process_gpx("/Users/johnsugden/Downloads/Zion_100_Miler_6th_place.gpx", 
 
 extract <- data.table(dplyr::bind_rows(ac, at, bc, bear, bighorn, 
                                        boston, can, canyons, cc, cj, 
-                                       es, grindstone, hardrock_cw, hl, imtuf, 
-                                       jav, leadville, mm, od, ouray, 
-                                       rrr, scout, tushars, utmb, vermont, 
-                                       wasatch, wy, ws, zion))
+                                       dp, es, grindstone, hardrock_cw, hb, 
+                                       hl, imtuf, jav, leadville, millwood, 
+                                       mm, od, ouray, rrr, scout, 
+                                       sp, tushars, utmb, vermont, wasatch, 
+                                       wy, ws, zion))
 write.csv(extract, "races.csv", row.names=F)
 extract[, .N, by=event]

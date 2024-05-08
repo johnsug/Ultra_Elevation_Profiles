@@ -1,22 +1,20 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import seaborn as sb
+
 #import matplotlib.pyplot as plt
-#import seaborn as sb
 
 st.title('Interactive Ultramarathon Course Profiles')
-st.write('Comparing the American Classics with the races in the Rocky Mountain Slam')
+st.write('Comparing the American Classics with the races in the Rocky Mountain Slam (and a few other races of interest)')
 
 race_data = pd.read_csv('races.csv')
 race_list = race_data['event'].unique()
 default_races = ['Wasatch 100', 'Western States', 'Boston Marathon']
 
-#races = ['Leadville', 'Wasatch', 'Western States', 'Angeles Crest', 'Boston', 
-#        'Hardrock', 'The Bear', 'Bighorn', 'Cascade Crest', 'IMTUF']
-#default_races = ['Leadville', 'Wasatch', 'Western States', 'Angeles Crest', 'Boston']
-
-options = st.multiselect('Select races to display', race_list, default_races)
+options = st.multiselect('Select races to display', race_list, default_races, max_selections=6)
 chart_data = race_data.copy().query(f'event in {options}')
+pal = sb.color_palette(palette="viridis", n_colors=len(options))
 
 units = st.radio('Measurement System', ['Imperial', 'Metric'], horizontal=True)
 
