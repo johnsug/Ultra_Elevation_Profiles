@@ -93,12 +93,14 @@ wy <- process_gpx("/Users/johnsugden/Downloads/Wyoming_Range_100.gpx", 100, smoo
 zion <- process_gpx("/Users/johnsugden/Downloads/Zion_100_Miler_6th_place.gpx", 100, event_name="Zion 100")
 #ggplot(jav, aes(x=miles, y=feet)) + geom_line() + theme_minimal()
 
-extract <- data.table(dplyr::bind_rows(ac, at, bandera, bc, bear, 
-   bighorn, boston, can, canyons, cc, 
-   cj, dp, es, grindstone, hardrock_cw, 
-   hb, hl, imtuf, jav, leadville, 
-   millwood, mm, od, ouray, rrr, 
-   scout, sp, tushars, utmb, vermont, 
-   wasatch, wy, ws, zion))
+extract <- data.table(
+  dplyr::bind_rows(
+    ac, at, bandera, bc, bear, 
+    bighorn, boston, can, canyons, cc, 
+    cj, dp, es, grindstone, hardrock_cw, 
+    hb, hl, imtuf, jav, leadville, 
+    millwood, mm, od, ouray, rrr, 
+    scout, sp, tushars, utmb, vermont, 
+    wasatch, wy, ws, zion))
 write.csv(extract, "races.csv", row.names=F)
 extract[, .N, by=event]
