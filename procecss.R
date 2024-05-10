@@ -100,7 +100,7 @@ moab240 <- process_gpx("/Users/johnsugden/Downloads/Moab_240.gpx", 240, event_na
 coco250 <- process_gpx("/Users/johnsugden/Downloads/Cocodona_250.gpx", 250, event_name="Cocodona 250")
 sg50k <- process_gpx("/Users/johnsugden/Downloads/Speedgoat_50k.gpx", 31, event_name="Speedgoat 50K")
 bc50 <- process_gpx("/Users/johnsugden/Downloads/Bryce_Canyon_50.gpx", 52, event_name="Bryce Canyon 50")
-bc100k <- process_gpx("/Users/johnsugden/Downloads/Black_Canyon_100k.gpx", 62, event_name="Bryce Canyon 100K")
+bc100k <- process_gpx("/Users/johnsugden/Downloads/Black_Canyon_100k.gpx", 62, event_name="Black Canyon 100K")
 
 extract <- data.table(
   dplyr::bind_rows(
