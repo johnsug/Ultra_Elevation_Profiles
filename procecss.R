@@ -98,6 +98,8 @@ bigfoot200 <- process_gpx("/Users/johnsugden/Downloads/Bigfoot_200.gpx", 200, ev
 tahoe200 <- process_gpx("/Users/johnsugden/Downloads/Tahoe_200.gpx", 200, event_name="Tahoo 200")
 moab240 <- process_gpx("/Users/johnsugden/Downloads/Moab_240.gpx", 240, event_name="Moab 240")
 coco250 <- process_gpx("/Users/johnsugden/Downloads/Cocodona_250.gpx", 250, event_name="Cocodona 250")
+sg50k <- process_gpx("/Users/johnsugden/Downloads/Speedgoat_50k.gpx", 31, event_name="Speedgoat 50K")
+bc50 <- process_gpx("/Users/johnsugden/Downloads/Bryce_Canyon_50.gpx", 52, event_name="Bryce Canyon 50")
 
 extract <- data.table(
   dplyr::bind_rows(
@@ -108,6 +110,6 @@ extract <- data.table(
     millwood, mm, od, ouray, rrr, 
     scout, sp, tushars, utmb, vermont, 
     wasatch, wy, ws, zion, 
-    bigfoot200, coco250, moab240, tahoe200))
+    bigfoot200, coco250, moab240, tahoe200, sg50k, bc50)
 write.csv(extract, "races.csv", row.names=F)
 extract[, .N, by=event]
