@@ -94,6 +94,10 @@ ws <- process_gpx("/Users/johnsugden/Downloads/WESTERN_STATES_100_.gpx", 100, sm
 wy <- process_gpx("/Users/johnsugden/Downloads/Wyoming_Range_100.gpx", 100, smoothing_factor=0.025, event_name="Western States")
 zion <- process_gpx("/Users/johnsugden/Downloads/Zion_100_Miler_6th_place.gpx", 100, event_name="Zion 100")
 #ggplot(jav, aes(x=miles, y=feet)) + geom_line() + theme_minimal()
+bigfoot200 <- process_gpx("/Users/johnsugden/Downloads/Bigfoot_200.gpx", 200, event_name="Bigfoot 200")
+tahoe200 <- process_gpx("/Users/johnsugden/Downloads/Tahoe_200.gpx", 200, event_name="Tahoo 200")
+moab240 <- process_gpx("/Users/johnsugden/Downloads/Moab_240.gpx", 240, event_name="Moab 240")
+coco250 <- process_gpx("/Users/johnsugden/Downloads/Cocodona_250.gpx", 250, event_name="Cocodona 250")
 
 extract <- data.table(
   dplyr::bind_rows(
@@ -103,6 +107,7 @@ extract <- data.table(
     hb, hl, imtuf, jav, leadville, 
     millwood, mm, od, ouray, rrr, 
     scout, sp, tushars, utmb, vermont, 
-    wasatch, wy, ws, zion))
+    wasatch, wy, ws, zion, 
+    bigfoot200, coco250, moab240, tahoe200))
 write.csv(extract, "races.csv", row.names=F)
 extract[, .N, by=event]
