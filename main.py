@@ -9,7 +9,7 @@ st.title('Interactive Ultramarathon Course Profiles')
 st.write('Comparing the American Classics with the races in the Rocky Mountain Slam (and a few other races of interest)')
 
 race_data = pd.read_csv('races.csv').\
-  query('event not in ["Canyonlands 100", "Zion 100"]')
+  query('event not in ["Canyonlands 100", "Zion 100", "Bryce Canyon 100"]')
 race_list = race_data['event'].unique()
 default_races = ['Western States', 'Wasatch 100', 'Boston Marathon']
 
