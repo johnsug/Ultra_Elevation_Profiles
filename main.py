@@ -14,13 +14,20 @@ race_list = race_data['event'].unique()
 default_races = ['Wasatch 100', 'Western States', 'Boston Marathon']
 
 options = st.multiselect('Select races to display', race_list, default_races, max_selections=6)
-chart_data = race_data.copy().query(f'event in {options}')
+chart_data = race_data.copy().\
+  query(f'event in {options}').\
+  rename(columns={"event": "columns"})
 pal = sb.color_palette(palette="viridis", n_colors=len(options))
 
 units = st.radio('Measurement System', ['Imperial', 'Metric'], horizontal=True)
 
+st.table(chart_data.head(5))
+
 if units == 'Imperial':
-  st.line_chart(chart_data, x='miles', y='feet', color='event')
+  st.line_chart(chart_data, x='miles', y='feet', color='columns')
+  #st.line_chart(race_data.copy().query('event == "Wasatch 100"'), x='miles', y='feet')
+  #st.line_chart(race_data.copy().query('event == "UTMB"'), x='miles', y='feet')# , color='event', x_label='Distance
+  #(Miles)', y_label='Vert (Ft)'
 
 if units == 'Metric':
-  st.line_chart(chart_data, x='km', y='meters', color='event')
+  st.line_chart(chart_data, x='km', y='meters') # color='event'
