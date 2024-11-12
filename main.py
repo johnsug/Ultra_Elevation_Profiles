@@ -2,32 +2,42 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import seaborn as sb
+import altair as alt
 
-#import matplotlib.pyplot as plt
-
+# load and prepare data
 st.title('Interactive Ultramarathon Course Profiles')
 st.write('Comparing the American Classics with the races in the Rocky Mountain Slam (and a few other races of interest)')
 
 race_data = pd.read_csv('races.csv').\
-  query('event not in ["Canyonlands 100", "Zion 100"]') ## "Bryce Canyon 100", "DC Peaks", "Snow Peaks 50"
+  query('event not in ["Canyonlands 100", "Zion 100"]')
 race_list = race_data['event'].unique()
-default_races = ['Wasatch 100', 'Western States', 'Boston Marathon']
+default_races = ['Western States', 'Wasatch 100', 'Boston Marathon']
 
+# select races to display
 options = st.multiselect('Select races to display', race_list, default_races, max_selections=6)
+
+# filter chart data
 chart_data = race_data.copy().\
   query(f'event in {options}').\
   rename(columns={"event": "columns"})
-pal = sb.color_palette(palette="viridis", n_colors=len(options))
 
+# select display measurments
 units = st.radio('Measurement System', ['Imperial', 'Metric'], horizontal=True)
 
-st.table(chart_data.head(5))
-
+# chart configs
 if units == 'Imperial':
-  st.line_chart(chart_data, x='miles', y='feet', color='columns')
-  #st.line_chart(race_data.copy().query('event == "Wasatch 100"'), x='miles', y='feet')
-  #st.line_chart(race_data.copy().query('event == "UTMB"'), x='miles', y='feet')# , color='event', x_label='Distance
-  #(Miles)', y_label='Vert (Ft)'
+   chart = alt.Chart(chart_data).mark_line().encode(
+     x=alt.X('miles', title='Miles'), 
+     y=alt.Y('feet', title='Elevation (Feet)'), 
+     color=alt.Color('columns:N', scale=alt.Scale(scheme='viridis'), legend=None)
+   ).properties(width=700, height=400)
 
 if units == 'Metric':
-  st.line_chart(chart_data, x='km', y='meters') # color='event'
+  chart = alt.Chart(chart_data).mark_line().encode(
+     x=alt.X('km', title='Kilometers'), 
+     y=alt.Y('meters', title='Elevation (Meters)'), 
+     color=alt.Color('columns:N', scale=alt.Scale(scheme='viridis'), legend=None)
+   ).properties(width=700, height=400)
+
+# display Altair chart
+st.altair_chart(chart)
